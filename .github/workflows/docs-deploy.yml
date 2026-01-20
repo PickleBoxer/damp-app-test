@@ -1,0 +1,78 @@
+name: Deploy Docs to GitHub Pages
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./docs
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        id: setup_pages
+        uses: actions/configure-pages@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          cache: 'pnpm'
+          cache-dir: docs
+
+      - name: Restore Next.js cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            docs/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('docs/pnpm-lock.yaml') }}-${{ hashFiles('docs/**/*.ts', 'docs/**/*.tsx', 'docs/**/*.js', 'docs/**/*.jsx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('docs/pnpm-lock.yaml') }}-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Format check
+        run: pnpm format
+
+      - name: Build
+        run: pnpm build
+        # No PAGES_BASE_PATH needed for custom domain (getdamp.app)
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./docs/out
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

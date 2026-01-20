@@ -1,0 +1,9 @@
+# Add files here to ignore them from prettier formatting
+/dist
+/coverage
+/.vite
+/out
+README.md
+/src/renderer/routeTree.gen.ts
+/src/renderer/components/ui
+pnpm-lock.yaml
