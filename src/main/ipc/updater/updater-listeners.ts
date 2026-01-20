@@ -1,14 +1,14 @@
-import { app, autoUpdater, BrowserWindow, ipcMain } from 'electron';
 import { createLogger } from '@main/utils/logger';
-import type { UpdateState, DownloadProgress } from '@shared/types/updater';
+import type { DownloadProgress, UpdateState } from '@shared/types/updater';
+import { app, autoUpdater, BrowserWindow, ipcMain } from 'electron';
 import {
   UPDATER_CHECK_CHANNEL,
-  UPDATER_INSTALL_CHANNEL,
-  UPDATER_STATUS_CHANNEL,
-  UPDATER_SKIP_VERSION_CHANNEL,
-  UPDATER_PROGRESS_CHANNEL,
-  UPDATER_STATUS_CHANGED_CHANNEL,
   UPDATER_ERROR_CHANNEL,
+  UPDATER_INSTALL_CHANNEL,
+  UPDATER_PROGRESS_CHANNEL,
+  UPDATER_SKIP_VERSION_CHANNEL,
+  UPDATER_STATUS_CHANGED_CHANNEL,
+  UPDATER_STATUS_CHANNEL,
 } from './updater-channels';
 
 const logger = createLogger('updater');
@@ -58,7 +58,8 @@ export function setupAutoUpdater() {
   }
 
   // Configure feed URL for Cloudflare R2 static storage
-  const baseUrl = `https://releases.getdamp.app/${process.platform}/${process.arch}`;
+  // const baseUrl = `https://releases.getdamp.app/${process.platform}/${process.arch}`;
+  const baseUrl = `https://github.com/PickleBoxer/damp-app/releases/latest/download`;
 
   try {
     autoUpdater.setFeedURL({ url: baseUrl });
