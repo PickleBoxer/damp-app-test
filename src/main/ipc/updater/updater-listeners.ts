@@ -59,7 +59,7 @@ export function setupAutoUpdater() {
 
   // Configure feed URL for Cloudflare R2 static storage
   // const baseUrl = `https://releases.getdamp.app/${process.platform}/${process.arch}`;
-  const baseUrl = `https://github.com/PickleBoxer/damp-app/releases/latest/download`;
+  const baseUrl = `https://github.com/PickleBoxer/damp-app-test/releases/latest/download`;
 
   try {
     autoUpdater.setFeedURL({ url: baseUrl });

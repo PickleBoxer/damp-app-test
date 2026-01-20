@@ -8,11 +8,11 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/PickleBoxer/damp-app.git"
+    "url": "https://github.com/PickleBoxer/damp-app-test.git"
   },
-  "homepage": "https://github.com/PickleBoxer/damp-app#readme",
+  "homepage": "https://github.com/PickleBoxer/damp-app-test#readme",
   "bugs": {
-    "url": "https://github.com/PickleBoxer/damp-app/issues"
+    "url": "https://github.com/PickleBoxer/damp-app-test/issues"
   },
   "scripts": {
     "start": "electron-forge start",

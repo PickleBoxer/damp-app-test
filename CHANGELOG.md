@@ -52,6 +52,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Shadcn UI component library
 - Tailwind CSS v4 for styling
 
-[0.2.0]: https://github.com/PickleBoxer/damp-app/compare/v0.1.1...v0.2.0
-[0.1.1]: https://github.com/PickleBoxer/damp-app/releases/tag/v0.1.1
-[0.1.0]: https://github.com/PickleBoxer/damp-app/releases/tag/v0.1.0
+[0.2.0]: https://github.com/PickleBoxer/damp-app-test/compare/v0.1.1...v0.2.0
+[0.1.1]: https://github.com/PickleBoxer/damp-app-test/releases/tag/v0.1.1
+[0.1.0]: https://github.com/PickleBoxer/damp-app-test/releases/tag/v0.1.0
