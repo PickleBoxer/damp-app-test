@@ -31,7 +31,9 @@ if (process.platform === 'win32') {
 
 // Set up auto-updater
 updateElectronApp({
+  repo: 'PickleBoxer/damp-app-test',
   updateInterval: '1 hour',
+  notifyUser: true,
 });
 
 const inDevelopment = process.env.NODE_ENV === 'development';
