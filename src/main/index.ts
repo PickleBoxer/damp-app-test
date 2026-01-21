@@ -1,13 +1,13 @@
-import { app, BrowserWindow } from 'electron';
-import registerListeners from './ipc/listeners-register';
-import started from 'electron-squirrel-startup';
-import path from 'node:path';
-import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
-import { TrayMenu } from './electron/TrayMenu';
-import { ngrokManager } from './services/ngrok/ngrok-manager';
 import { ensureNetworkExists } from '@main/core/docker';
 import { createLogger } from '@main/utils/logger';
-import { setupAutoUpdater } from './ipc/updater/updater-listeners';
+import { app, BrowserWindow } from 'electron';
+import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
+import started from 'electron-squirrel-startup';
+import path from 'node:path';
+import { updateElectronApp } from 'update-electron-app';
+import { TrayMenu } from './electron/TrayMenu';
+import registerListeners from './ipc/listeners-register';
+import { ngrokManager } from './services/ngrok/ngrok-manager';
 
 const logger = createLogger('main');
 
@@ -28,6 +28,11 @@ if (started) {
 if (process.platform === 'win32') {
   app.setAppUserModelId('com.pickleboxer.damp');
 }
+
+// Set up auto-updater
+updateElectronApp({
+  updateInterval: '1 hour',
+});
 
 const inDevelopment = process.env.NODE_ENV === 'development';
 
@@ -104,12 +109,6 @@ app.whenReady().then(async () => {
     const message = error instanceof Error ? error.message : String(error);
     logger.info('Network initialization skipped', { error: message });
   });
-
-  // Set up auto-updater (deferred to not block app initialization)
-  // Delayed by 5 seconds to ensure app is fully initialized
-  setTimeout(() => {
-    setupAutoUpdater();
-  }, 5000);
 
   // Use TrayMenu class for tray setup
   void new TrayMenu();
