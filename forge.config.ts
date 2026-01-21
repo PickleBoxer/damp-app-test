@@ -32,10 +32,7 @@ const config: ForgeConfig = {
     force: true,
   },
   makers: [
-    new MakerSquirrel({
-      //remoteReleases: 'https://releases.getdamp.app/win32/x64',
-      remoteReleases: 'https://github.com/PickleBoxer/damp-app-test/releases/latest/download',
-    }),
+    new MakerSquirrel({}),
     new MakerZIP({}, ['win32']),
   ],
   plugins: [
